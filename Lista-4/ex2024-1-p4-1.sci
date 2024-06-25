@@ -9,3 +9,4 @@ T = 0.01;
 Hs = K*wn^2/(s^2+2*zeta*wn*s+wn^2);
 
 Hz = horner(Hs, (2/T)*(z-1)/(z+1));
+

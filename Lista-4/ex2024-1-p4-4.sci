@@ -43,8 +43,8 @@ t=zeros(1,N)
 dt=0.01
 y0=0
 Kp=1
-Ki=0*dt
-Kd=0/dt
+Ki=1*dt
+Kd=1/dt
 m=0
 SP=1
 e1=0
@@ -53,13 +53,10 @@ e0=0
 IAE=0
 for i=1:N
     t(i)=dt*i
-    
-    //PID
     e2=e1
     e1=e0
     e0=SP-y0
     m=m+Kp*(e0-e1)+Ki*e0+Kd*(e0-2*e1+e2)
-    
     [a,A]=processo(A,m)
     [y0,P]=processo(P,a)
     y(i)=y0

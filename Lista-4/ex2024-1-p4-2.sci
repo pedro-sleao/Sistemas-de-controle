@@ -1,20 +1,17 @@
 s = %s;
 z = %z;
 
-K = 2;
-wn = 1;
-zeta = 0.2;
 T = 0.01;
 
-Hs = K*wn^2/(s^2+2*zeta*wn*s+wn^2);
+Hs = 2/(0.1*s+1);
 
 Hz = horner(Hs, (2/T)*(z-1)/(z+1));
 coefnum = coeff(Hz.num);
 coefden = coeff(Hz.den);
 
-P=struct('x2',0,'x1',0,'x0',0,'a2',coefnum(1),'a1',coefnum(2),'a0',coefnum(3),...
-         'y2',0,'y1',0,'y0',0,'b2',coefden(1),'b1',coefden(2),'b0',coefden(3),...
-         'ymax',1000,'ymin',-1000)
+A=struct('x2',0,'x1',0,'x0',0,'a2',0,'a1',coefnum(1),'a0',coefnum(2),...
+         'y2',0,'y1',0,'y0',0,'b2',0,'b1',coefden(1),'b0',coefden(2),...
+         'ymax',2,'ymin',0)
 
 function [y, param]=processo(param,x)
     param.x2=param.x1;
@@ -46,10 +43,9 @@ y0=0
 
 for i=1:N
     t(i)=dt*i
-    [y0,P]=processo(P,1)
+    [y0,A]=processo(A,1)
     y(i)=y0
 end
 plot(t,y, "*r-")
-
 
 
